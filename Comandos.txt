@@ -1,6 +1,16 @@
 Comandos
 
+- ACTIVAR SWITCH
+
 SW1 > enable
+
+- GUARDAR CONFIGURACIONES
+
+SW1(config) # exit
+    SW1 # wr
+    SW1 # copy running-config startup-config
+
+    Cualquiera de los dos
 
 - VER ESTADO DE SWITCH (ver modo de operacion: Server, Client, Transparent o None)
 
@@ -19,7 +29,7 @@ SW1 # show int trunk
 SW1 # configure terminal
 SW1(config) # vlan [id]
 SW1(config-vlan) # name [nombre]
-SW1(config-vlan) # exit
+SW1(config-vlan) # description [alguna descripcion]
 
 - ELIMINAR VLAN
 
@@ -41,32 +51,53 @@ SW1(config) # vtp version [1/2]
 SW1 # configure terminal
 SW1(config) # vtp domain [dominio]
 
+- CONFIGURAR NOMBRE
+
+SW1 # configure terminal
+SW1(config) # hostname [new name]
+new name(config) # exit
+new name(config) # wr
+
 - CONFIGURAR PASSWORD
 
 SW1 # configure terminal
 SW1(config) # vtp password [password]
+    - si se selecciona secret, el password debe tener 32 caracteres de largo y el password debe ir encriptado de una vez
+    - si se selecciona hidden, el password ingresado va en texto plano y al mostrar el password se muestra el hash
+        * Ambas opciones deben correrse en la version VTP 3
 
 - CONFIGURAR UN PUERTO COMO TRUNK PORT: Una o mas VLAN
 
 SW1 # configure terminal
 SW1(config) # interface f0/12
-SW1(config) # switchport trunk encapsulation dot1q // only if current encapsulation is "Auto"
-SW1(config) # switchport mode trunk
-SW1(config) # switchport trunk allowed vlan [all/ o lista de vlan's 10,20,...]
-SW1(config) # exit
+SW1(config-if) # switchport trunk encapsulation dot1q // only if current encapsulation is "Auto"
+SW1(config-if) # switchport mode trunk
+SW1(config-if) # switchport trunk allowed vlan [all/ o lista de vlan's 10,20,...]
 
 - CONFIGURAR UN PUERTO COMO ACCESS PORT: Una sola VLAN por lo general dispositivos finales
 
 SW1 # configure terminal
 SW1(config) # interface f0/12
-SW1(config) # switchport mode access
-SW1(config) # switchport access vlan 10
-SW1(config) # exit
+SW1(config-if) # switchport mode access
+SW1(config-if) # switchport access vlan 10
 
 - CONFIGURAR UN PUERTO VLAN ID
 
 SW1 # configure terminal
 SW1(config) # interface f0/12
-SW1(config) # switchport mode trunk
-SW1(config) # switchport trunk native vlan [# de vlan]
-SW1(config) # exit
+SW1(config-if) # switchport mode trunk
+SW1(config-if) # switchport trunk native vlan [# de vlan]
+
+- CONFIGURAR PRIMARIO
+
+SW1 # configure terminal
+SW1(config) # vtp primary
+
+- VER DISPOSITIVOS
+
+SW1 # show vtp devices
+
+
+enable password [pass]
+enable secret [secret]
+service password-encryption
