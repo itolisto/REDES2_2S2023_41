@@ -1,3 +1,72 @@
 Comandos
 
+SW1 > enable
 
+- VER ESTADO DE SWITCH (ver modo de operacion: Server, Client, Transparent o None)
+
+SW1 # show vtp status 
+
+- VER RESUMEN DE SWITCH
+
+SW1 # show vlan brief 
+
+- VER RESUMEN DE PUERTOS
+
+SW1 # show int trunk
+
+- CREAR VLAN
+
+SW1 # configure terminal
+SW1(config) # vlan [id]
+SW1(config-vlan) # name [nombre]
+SW1(config-vlan) # exit
+
+- ELIMINAR VLAN
+
+SW1 # configure terminal
+SW1(config) # no vlan [id]
+
+- CONFIGURAR MODO DE VTP
+
+SW1 # configure terminal
+SW1(config) # vtp mode [server/client/transparent/off]
+
+- CONFIGURAR VERSION
+
+SW1 # configure terminal
+SW1(config) # vtp version [1/2]
+
+- CONFIGURAR DOMINIO
+
+SW1 # configure terminal
+SW1(config) # vtp domain [dominio]
+
+- CONFIGURAR PASSWORD
+
+SW1 # configure terminal
+SW1(config) # vtp password [password]
+
+- CONFIGURAR UN PUERTO COMO TRUNK PORT: Una o mas VLAN
+
+SW1 # configure terminal
+SW1(config) # interface f0/12
+SW1(config) # switchport trunk encapsulation dot1q // only if current encapsulation is "Auto"
+SW1(config) # switchport mode trunk
+SW1(config) # switchport trunk allowed vlan [all/ o lista de vlan's 10,20,...]
+SW1(config) # exit
+
+- CONFIGURAR UN PUERTO COMO ACCESS PORT: Una sola VLAN por lo general dispositivos finales
+
+SW1 # configure terminal
+SW1(config) # interface f0/12
+SW1(config) # switchport mode access
+SW1(config) # switchport access vlan 10
+SW1(config) # exit
+
+- CONFIGURAR UN PUERTO VLAN ID
+
+SW1 # configure terminal
+SW1(config) # interface f0/12
+SW1(config) # switchport mode trunk
+SW1(config) # switchport trunk native vlan [# de vlan]
+SW1(config) # exit
