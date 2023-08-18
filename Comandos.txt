@@ -102,3 +102,7 @@ SW1 # show vtp devices
 SW1 # configure terminal
 SW1(config) # interface f0/12
 SW1(config-if) # switchport port-security
+
+- VER SWITCH ROOT (Buscar "This bridge is the root", para elegir la mejor ruta se maneja con base a costos)
+
+SW1 # show spanning-tree
