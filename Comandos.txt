@@ -97,7 +97,8 @@ SW1(config) # vtp primary
 
 SW1 # show vtp devices
 
+- CONFIGURAR PORT SECURITY: Unicamente en puertos de tipo access
 
-enable password [pass]
-enable secret [secret]
-service password-encryption
+SW1 # configure terminal
+SW1(config) # interface f0/12
+SW1(config-if) # switchport port-security
