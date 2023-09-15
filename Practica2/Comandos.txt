@@ -1,0 +1,98 @@
+Comandos
+
+- ASIGNAR INTERFAZ DE VLAN 
+
+SW1 # configure terminal
+SW1(config) # int vlan [id]
+SW1(config-if) # ip address 192.168.[id].1 255.255.255.0
+SW1(config-if) # no shutdown // Por precaucion
+SW1(config-if) # exit
+
+- ASIGNAR INTERFAZ DE VLAN 
+
+SW1(config) # ip routing
+SW1(config) # router [opcion] 10
+SW1(config) # network 3.3.3.0 0.0.0.255 area 10
+SW1(config) # network 192.168.15.0 0.0.0.255 area 10
+SW1(config) # network 192.168.25.0 0.0.0.255 area 10
+
+
+- HUEHUE
+    - Multilayer
+        enable
+        conf t
+        hostname MSW2
+
+        vlan 65
+        name SOPORTE
+        vlan 90
+        name CON_IT_SOPORTE
+        exit
+
+        int vlan 65
+        ip address 192.168.65.1 255.255.255.0
+        no shutdown
+        exit
+        int g0/1
+        switchport access vlan 65
+        exit
+
+        int vlan 90
+        ip address 2.2.2.1 255.0.0.0
+        no shutdown
+        exit
+        int g0/2
+        switchport access vlan 90
+        exit
+
+        do wr
+
+        ip routing
+        router ospf 26
+        network 2.2.2.0 0.0.0.255 area 26
+        network 192.168.65.0 0.0.0.255 area 26
+        network 192.168.25.0 0.0.0.255 area 26
+        exit
+
+        do wr
+
+
+- SOLOLA
+    - Multilayer
+        enable
+        conf t
+        hostname MSW3
+
+        vlan 25 [posiblemente sea 65 igual que el de Huehue]
+        name IT
+        vlan 90
+        name CON_IT_SOPORTE
+        exit
+
+        int vlan 25 [posiblemente sea 65 igual que el de Huehue]
+        ip address 192.168.25.1 255.255.255.0
+        no shutdown
+        exit
+        int g0/1
+        switchport access vlan 25
+        exit
+
+        int vlan 90
+        ip address 2.2.2.2 255.0.0.0
+        no shutdown
+        exit
+        int g0/2
+        switchport access vlan 90
+        exit
+
+        do wr
+
+        ip routing
+        router ospf 26
+        network 2.2.2.0 0.0.0.255 area 26
+        network 192.168.65.0 0.0.0.255 area 26
+        network 192.168.25.0 0.0.0.255 area 26
+        exit
+
+        do wr
+
