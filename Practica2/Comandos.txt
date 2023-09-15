@@ -34,7 +34,8 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         no shutdown
         exit
         int g0/1
-        switchport access vlan 65
+        switchport mode trunk
+        switchport trunk allowed vlan 65
         exit
 
         int vlan 90
@@ -43,6 +44,14 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         exit
         int g0/2
         switchport access vlan 90
+        exit
+
+        int vlan 80
+        ip address 1.1.1.1 255.0.0.0
+        no shutdown
+        exit
+        int f0/10
+        switchport access vlan 80
         exit
 
         do wr
@@ -91,7 +100,8 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         no shutdown
         exit
         int g0/1
-        switchport access vlan 25
+        switchport mode trunk
+        switchport trunk allowed vlan 25
         exit
 
         int vlan 90
@@ -147,7 +157,8 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         no shutdown
         exit
         int g0/1
-        switchport access vlan 15
+        switchport mode trunk
+        switchport trunk allowed vlan 15
         exit
 
         int vlan 80
@@ -165,6 +176,7 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         network 1.1.1.0 0.0.0.255
         network 192.168.65.0 0.0.0.255
         network 192.168.15.0 0.0.0.255
+        no auto-summary
         exit
 
         do wr
