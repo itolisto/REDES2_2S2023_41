@@ -27,6 +27,8 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         name SOPORTE
         vlan 90
         name CON_IT_SOPORTE
+        vlan 80
+        name CON_RRHH_SOPORTE
         exit
 
         int vlan 65
@@ -51,6 +53,7 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         no shutdown
         exit
         int f0/10
+        switchport mode access
         switchport access vlan 80
         exit
 
@@ -61,6 +64,15 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         network 2.2.2.0 0.0.0.255 area 26
         network 192.168.65.0 0.0.0.255 area 26
         network 192.168.25.0 0.0.0.255 area 26
+        exit
+
+        do wr
+
+        router eigrp 16
+        network 1.1.1.0
+        network 192.168.65.0
+        network 192.168.15.0
+        no auto-summary
         exit
 
         do wr
@@ -81,6 +93,13 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         exit
 
         do wr
+
+
+
+
+
+
+
 
 
 - SOLOLA
@@ -140,6 +159,14 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
 
         do wr
 
+
+
+
+
+
+
+
+
 - REU
     - Multilayer
         enable
@@ -165,7 +192,7 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         ip address 1.1.1.2 255.0.0.0
         no shutdown
         exit
-        int g0/2
+        int f0/10
         switchport access vlan 80
         exit
 
