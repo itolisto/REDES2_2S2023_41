@@ -56,6 +56,23 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
 
         do wr
 
+    - Simple
+        enable
+        conf t
+        hostname SW2
+
+        int g0/1
+        switchport mode trunk
+        switchport trunk allowed vlan 65
+        exit
+
+        int f0/10
+        switchport mode access
+        switchport access vlan 65
+        exit
+
+        do wr
+
 
 - SOLOLA
     - Multilayer
@@ -63,13 +80,13 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         conf t
         hostname MSW3
 
-        vlan 25 [posiblemente sea 65 igual que el de Huehue]
+        vlan 25
         name IT
         vlan 90
         name CON_IT_SOPORTE
         exit
 
-        int vlan 25 [posiblemente sea 65 igual que el de Huehue]
+        int vlan 25
         ip address 192.168.25.1 255.255.255.0
         no shutdown
         exit
@@ -92,6 +109,80 @@ SW1(config) # network 192.168.25.0 0.0.0.255 area 10
         network 2.2.2.0 0.0.0.255 area 26
         network 192.168.65.0 0.0.0.255 area 26
         network 192.168.25.0 0.0.0.255 area 26
+        exit
+
+        do wr
+
+    - Simple
+        enable
+        conf t
+        hostname SW3
+
+        int g0/1
+        switchport mode trunk
+        switchport trunk allowed vlan 25
+        exit
+
+        int range f0/10-11
+        switchport mode access
+        switchport access vlan 25
+        exit
+
+        do wr
+
+- REU
+    - Multilayer
+        enable
+        conf t
+        hostname MSW1
+
+        vlan 15
+        name RRHH
+        vlan 80
+        name CON_RRHH_SOPORTE
+        exit
+
+        int vlan 15
+        ip address 192.168.15.1 255.255.255.0
+        no shutdown
+        exit
+        int g0/1
+        switchport access vlan 15
+        exit
+
+        int vlan 80
+        ip address 1.1.1.2 255.0.0.0
+        no shutdown
+        exit
+        int g0/2
+        switchport access vlan 80
+        exit
+
+        do wr
+
+        ip routing
+        router eigrp 16
+        network 1.1.1.0 0.0.0.255
+        network 192.168.65.0 0.0.0.255
+        network 192.168.15.0 0.0.0.255
+        exit
+
+        do wr
+
+    - Simple
+        enable
+        conf t
+        hostname SW1
+
+        int g0/1
+        // switchport trunk encapsulation dot1q // only if current encapsulation is "Auto"
+        switchport mode trunk
+        switchport trunk allowed vlan 15
+        exit
+
+        int range f0/10-12
+        switchport mode access
+        switchport access vlan 15
         exit
 
         do wr
